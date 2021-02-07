@@ -25,8 +25,9 @@ public class EstimateController {
     @Resource
     EstimateService estimateService;
 
-    @PostMapping(value="")
+    @PostMapping(value = "")
     public ResponseEntity<List<PriceDTO>> estimate(@RequestBody final EstimateDTO estimateDTO) {
         return new ResponseEntity<List<PriceDTO>>(estimateService.estimate(estimateDTO), HttpStatus.OK);
     }
+
 }

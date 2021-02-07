@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class RidepriceestimatorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RidepriceestimatorApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RidepriceestimatorApplication.class, args);
+    }
 
 }
