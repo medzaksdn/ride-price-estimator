@@ -1,0 +1,13 @@
+package com.medzaksdn.ridepriceestimator;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class RidepriceestimatorApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
