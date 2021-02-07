@@ -1,5 +1,14 @@
 package com.medzaksdn.ridepriceestimator.service.impl;
 
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
 import com.google.maps.GaeRequestHandler;
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.GeoApiContext;
@@ -9,13 +18,12 @@ import com.google.maps.model.TravelMode;
 import com.google.maps.model.Unit;
 import com.medzaksdn.ridepriceestimator.dto.EstimateDTO;
 import com.medzaksdn.ridepriceestimator.dto.PriceDTO;
+import com.medzaksdn.ridepriceestimator.dto.RideOptionDTO;
+import com.medzaksdn.ridepriceestimator.model.Price;
+import com.medzaksdn.ridepriceestimator.model.RideOption;
+import com.medzaksdn.ridepriceestimator.repository.PriceJpaRepository;
+import com.medzaksdn.ridepriceestimator.repository.RideOptionJpaRepository;
 import com.medzaksdn.ridepriceestimator.service.EstimateService;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * @author Mohamed-Zakaria SAIDANE
@@ -26,14 +34,25 @@ public class EstimateServiceImpl implements EstimateService {
     @Value("${google.api.key}")
     private String googleAPIKey;
 
+    @Resource
+    private RideOptionJpaRepository rideOptionJpaRepository;
+
+    @Resource
+    private PriceJpaRepository priceJpaRepository;
+
     @Override
     public List<PriceDTO> estimate(EstimateDTO estimateDTO) {
-        Long distance = getDistances(estimateDTO);
+        List<PriceDTO> priceDtos = new ArrayList<>();
+        List<RideOption> rideOptions = rideOptionJpaRepository.findAll();
 
-        return null;
+        for (RideOption rideOption : rideOptions) {
+            priceDtos.add(priceCalculate(getDistance(estimateDTO), rideOption));
+        }
+
+        return priceDtos;
     }
 
-    private Long getDistances(EstimateDTO estimateDTO) {
+    private Long getDistance(EstimateDTO estimateDTO) {
         GeoApiContext geoApiContext = new GeoApiContext.Builder(new GaeRequestHandler.Builder())
                 .apiKey(this.googleAPIKey)
                 .build();
@@ -61,5 +80,25 @@ public class EstimateServiceImpl implements EstimateService {
         return null;
     }
 
-    //private Double priceCalculate(Long distance, )
+    private PriceDTO priceCalculate(Long distance, RideOption rideOption) {
+        List<Price> prices = priceJpaRepository.findByRideOption(rideOption, Sort.by(Sort.Direction.ASC, "distance"));
+
+        Double totalPrice = new Double(0);
+        Price before = prices.get(0);
+        for (Price price : prices) {
+            if (distance - price.getDistance() >= 0) {
+                totalPrice = totalPrice + (price.getDistance() - before.getDistance()) * price.getPrice();
+            } else {
+                totalPrice = totalPrice + (distance - before.getDistance()) * price.getPrice();
+            }
+        }
+
+        // minimum price
+        Price minimumPrice = priceJpaRepository.findOneByRideOptionAndDistance(rideOption, new Double(0));
+
+        totalPrice = totalPrice > minimumPrice.getPrice() ? totalPrice : minimumPrice.getPrice();
+
+        return new PriceDTO(new RideOptionDTO(rideOption.getId().toString(), rideOption.getName()), totalPrice);
+    }
+
 }

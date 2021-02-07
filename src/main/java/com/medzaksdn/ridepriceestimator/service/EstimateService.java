@@ -1,9 +1,9 @@
 package com.medzaksdn.ridepriceestimator.service;
 
+import java.util.List;
+
 import com.medzaksdn.ridepriceestimator.dto.EstimateDTO;
 import com.medzaksdn.ridepriceestimator.dto.PriceDTO;
-
-import java.util.List;
 
 /**
  * @author Mohamed-Zakaria SAIDANE
@@ -11,4 +11,5 @@ import java.util.List;
 public interface EstimateService {
 
     List<PriceDTO> estimate(EstimateDTO estimateDTO);
+
 }
