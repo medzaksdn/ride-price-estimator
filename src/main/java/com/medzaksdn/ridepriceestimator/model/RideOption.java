@@ -1,18 +1,24 @@
 package com.medzaksdn.ridepriceestimator.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author Mohamed-Zakaria SAIDANE
  */
 @Entity
-public class RideOption {
+@Table(name = "ride_option")
+public class RideOption implements Serializable {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
 
-    @Id
     public Long getId() {
         return id;
     }

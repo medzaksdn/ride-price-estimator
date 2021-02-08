@@ -1,27 +1,32 @@
 package com.medzaksdn.ridepriceestimator.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.Table;
 
 /**
  * @author Mohamed-Zakaria SAIDANE
  */
 @Entity
-public class Price {
+@Table(name = "price")
+public class Price implements Serializable {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private Float distance;
     private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "rideoption_id", nullable = false)
+    @JoinColumn(name = "ride_option_id", nullable = false)
     private RideOption rideOption;
 
-    @Id
     public Long getId() {
         return id;
     }
