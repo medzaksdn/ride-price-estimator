@@ -4,6 +4,7 @@ package com.medzaksdn.ridepriceestimator.dto;
  * @author Mohamed-Zakaria SAIDANE
  */
 public class PriceDTO {
+
     public RideOptionDTO rideOptionDTO;
     public Double price;
 
@@ -11,4 +12,5 @@ public class PriceDTO {
         this.rideOptionDTO = rideOptionDTO;
         this.price = price;
     }
+
 }

@@ -4,6 +4,7 @@ package com.medzaksdn.ridepriceestimator.dto;
  * @author Mohamed-Zakaria SAIDANE
  */
 public class RideOptionDTO {
+
     public String id;
     public String name;
 
