@@ -40,7 +40,7 @@ http://localhost:8080/estimate
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `[
+  * **Content:** `[
     {
         "rideOptionDTO": {
             "id": "1",
