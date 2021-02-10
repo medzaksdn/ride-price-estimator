@@ -23,13 +23,13 @@ mvn spring-boot:run
 
 ## Usage
 
-* **URL**
+* **URL:**
 http://localhost:8080/estimate
 
 * **Method:**
 `POST`
 
-* **Data Params**
+* **Data Params:**
 `{
     "latitude1" : "48.8567397",
     "longitude1" : "2.2914176",
