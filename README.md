@@ -66,4 +66,32 @@ http://localhost:8080/estimate
 
 ## Documentation
 
-TODO
+The idea of the price calculation is to give a price per kilometer to intervals (you can add many in the database) and to give a minimum price of the ride too.
+
+**Examples :** 
+
+|distance (km) | price ($) |
+|:----------:|:----------:|
+|0|10|
+|4|3|
+|8|2|
+|15|1|
+
+  * **Example 1 :**
+
+    Ride distance :  7 km
+
+    4 * 3 USD  = $ 12
+
+    3 * 2 USD = $ 6
+
+    Total : 12 + 6 = $ 18
+
+
+  * **Example 2 :**
+
+      Ride distance :  2.5 km
+
+    2.5 * 3 USD  = $ 7.5 < $ 10 (minimum price)
+
+    Total : $ 10
