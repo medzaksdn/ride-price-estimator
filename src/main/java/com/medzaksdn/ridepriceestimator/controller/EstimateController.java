@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.medzaksdn.ridepriceestimator.service.EstimateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.medzaksdn.ridepriceestimator.dto.EstimateDTO;
 import com.medzaksdn.ridepriceestimator.dto.PriceDTO;
+import com.medzaksdn.ridepriceestimator.service.EstimateService;
 
 /**
  * @author Mohamed-Zakaria SAIDANE
