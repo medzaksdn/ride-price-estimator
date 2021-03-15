@@ -11,7 +11,7 @@ Maven installed.
 
 ## Installing and running
 
-Download the project dependencies : 
+Build and download the project dependencies : 
 ```bash 
 mvn clean install 
 ```
